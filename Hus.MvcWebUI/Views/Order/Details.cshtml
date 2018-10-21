@@ -1,0 +1,121 @@
+﻿@using Hus.MvcWebUI.Entity
+@model Hus.MvcWebUI.Models.OrderDetailsModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Order detail information</h2>
+            <hr />
+
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success ">
+                    @TempData["message"]
+                </div>
+            }
+
+                <dl class="row">
+
+                    <dt class="col-sm-3">Username</dt>
+                    <dd class="col-sm-9">@Model.Username</dd>
+
+                    <dt class="col-sm-3">Order State</dt>
+                    <dd class="col-sm-9">
+
+
+
+                        @using (Html.BeginForm("UpdateOrderState", "Order", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(i => i.OrderId)
+
+                            <dl class="row">
+                                <dt class="col-sm-8">
+                                    @Html.EnumDropDownListFor(i => i.OrderState, null, new { @class = "form-control" })
+                                </dt>
+
+                                <dd class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </dd>
+                            </dl>
+
+                        }
+
+
+
+                    </dd>
+
+                    <dt class="col-sm-3">Order Id</dt>
+                    <dd class="col-sm-9">@Model.OrderId</dd>
+
+                    <dt class="col-sm-3">Order Number</dt>
+                    <dd class="col-sm-9">@Model.OrderNumber</dd>
+
+                    <dt class="col-sm-3">Total</dt>
+                    <dd class="col-sm-9"> @Model.Total<i class="fas fa-dollar-sign"></i></dd>
+
+                    <dt class="col-sm-3">Order Date</dt>
+                    <dd class="col-sm-9">@Model.OrderDate</dd>
+
+                    <dt class="col-sm-3">Order Date</dt>
+                    <dd class="col-sm-9">@Model.OrderDate</dd>
+
+
+                    <dt class="col-sm-3">Addres</dt>
+                    <dd class="col-sm-9">
+                        @Model.AddressTitle
+                        <hr />
+                        @Model.Address
+                        <br />
+                        @Model.City-@Model.District-@Model.Neighborhood
+                        <br />
+                        @Model.PostalCode
+                    </dd>
+
+                    <dt class="col-sm-3">Products</dt>
+                    <dd class="col-sm-9">
+
+                        <table class="table table-bordered">
+
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th style="width:45%;">Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th style="width:10%;"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.OrderLines)
+                                {
+                                    <tr>
+                                        <td><img src="~/Upload/@item.Image" width="70" /></td>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.Quantity</td>
+                                        <td> @item.Price<i class="fas fa-dollar-sign"></i></td>
+                                        <td>
+                                            <a href="/Home/Details/@item.ProductId" class="btn btn-primary btn-sm" target="_blank">
+                                                <i class="fas fa-angle-double-right"></i>
+                                                Product Details
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+
+                    </dd>
+
+
+                </dl>
+        </div>
+    </div>
+</div>

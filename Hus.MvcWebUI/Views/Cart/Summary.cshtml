@@ -1,0 +1,24 @@
+﻿@using Hus.MvcWebUI.Models
+@model Hus.MvcWebUI.Models.Cart
+
+<style>
+    #cart{
+        color:white;
+    }
+
+
+</style>
+
+<ul class="navbar-nav  my-2 my-lg-0">
+
+    <li id="cart" class="nav-item">
+
+        <a class="nav-link" href="/Cart/Index">
+            <i class="fas fa-cart-plus"></i>
+            (@Model.CartLines.Count)
+        </a>
+
+
+    </li>
+
+</ul>
